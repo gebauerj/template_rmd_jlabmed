@@ -1,0 +1,151 @@
+---
+title: How to write an Manuscript in Rmd for the Journal of Laboratory Medicine
+
+author:
+  - Christopher Turk:
+      institute: [sc]
+  - John Dorian:
+      email: jd@sacredheart.tv
+      institute: [sc]
+      correspondence: false
+
+institute:
+  - sc: Sacred Heart Hospital, Hospitalstreet 1, San DiFrangeles, California
+
+documentclass: article
+geometry: margin=1in
+fontsize: 12pt
+
+output:
+  pdf_document:
+    latex_engine: xelatex
+    extra_dependencies: ["float"]
+    pandoc_args:
+      - '--lua-filter=scholarly-metadata.lua'
+      - '--lua-filter=author-info-blocks.lua'
+    keep_tex: true
+      
+header-includes:
+- \usepackage{setspace}\doublespacing
+- \usepackage{bookman}
+
+- \usepackage{lineno}
+- \linenumbers
+
+- \usepackage{caption}
+- \captionsetup[figure]{labelformat=empty}
+- \captionsetup[table]{labelformat=empty}
+- \usepackage{longtable}
+
+bibliography: zotero_export.bib
+csl: vancouver-brackets_jlabmed.csl
+
+
+---
+
+**Word count:** currently manually
+
+**Number of figures:** 1
+
+**Number of tables:** 1
+
+**Supplementary Material:** no
+
+\newpage
+
+**List of Abbreviations:**
+
+- ABB1: Abbreviation 1
+- ABB2: Abbreviation 2
+- g: $\gamma$
+
+# Abstract
+**Objectives:**
+The aim of the work is to establish a programmer-friendly template for publications using open source software.
+**Methods:**
+Using R, RStudio, pandoc and Latex the creation of this work was straightforward and efficient.
+**Results:**
+All formatting required for publication could be adhered to without any further manual intervention.
+**Conclusions:**
+The character set proved to be robust, reliable and visually appealing. 
+
+**Keywords:** publication, latex, rmarkdown
+
+# Introduction
+
+Nowadays, the creation of texts and publications using WYSIWYG programs has become established in many areas of the scientific world.
+However, these solutions have considerable disadvantages compared to more sophisticated apporaches, such as those frequently used in the fields of mathematics and physics.
+The aim of this work is to establish these techniques in the fields of life science and medicine
+
+
+# Material and Methods
+
+The typesetting for this manuscript was performed using the programming language R [@r_core_team_r_2023], RStudio, the \texttt{tidyverse} [@wickham_welcome_2019], pandoc and LaTex. 
+
+# Results
+
+All formatting required for publication could be adhered to without any further manual intervention.
+Special formatting as shown below is also possible.
+
+- \textcolor{red}{colored text}
+- \texttt{typewriter case}, although it is difficult to distinguish from the font used
+- greek letters like $\gamma$
+
+# Disucssion
+
+The result of this template is a beautiful PDF that fulfills all the requirements of a professional scientist, as anyone can see.
+
+Although the use of RStudio makes working with this template quite comfortable, an old legend says that true performance is only possible in Emacs Org mode. 
+
+Therefore, we would like to point out the alternative possible use of emacs.
+
+\newpage
+
+# Ethical conduct of research
+
+**Research funding:** None declared.
+
+**Author contributions:** All authors have accepted responsibility for the entire content of this manuscript and
+approved its submission.
+
+**Competing interests:** Authors state no conflict of interest.
+
+**Informed consent and ethical approval:** Not necessary for analysis of already published data.
+
+# References
+
+<div id="refs"></div>
+
+\newpage
+
+# Appendix
+```{r fig1, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = "H"}
+library(ggplot2)
+ggplot(data=iris,mapping=aes(x=Petal.Length,y=Petal.Width,color=Species))+
+  geom_point()+
+  geom_smooth(method="lm") +
+  labs(title = "An example plot as Figure 1")
+```
+
+```{r tbl1, echo=FALSE, message=FALSE, warning=FALSE, fig.pos = "H"}
+library(tidyverse)
+library(kableExtra)
+
+iris %>% head() %>%
+  knitr::kable(
+  format = "latex",
+  align = "l",
+  booktabs = TRUE,
+  longtable = TRUE,
+  linesep = "",
+  caption = "\\textbf{Table 1:} An example table. This table is converted to Latex by knittr::kable",
+  table.attr = "style='width:0.5\\linewidth;'"
+) %>%
+  kableExtra::kable_styling(
+    font_size = 10,
+    position = "center",
+    latex_options = c('striped', 'scale_down'),
+    stripe_color = "gray!15"
+  )
+  
+```
